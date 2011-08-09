@@ -1,0 +1,2 @@
+mvn android:emulator-start
+mvn clean install android:deploy
