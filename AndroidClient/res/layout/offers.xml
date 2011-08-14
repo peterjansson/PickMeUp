@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:id="@+id/RelativeLayout01" 
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<TextView
+   		android:id="@+id/negotiationIdText"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content" />
+	
+	<!-- 
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="vertical"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerInParent="true" android:id="@+id/linearLayout1">
+	    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:orientation="vertical"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerInParent="true">
+	    	<TextView
+	    		android:id="@+id/offerText1"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content" />
+		         
+		    <Button
+				android:id="@+id/acceptOffer1Button"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:text="Accept"/>
+			<TextView
+	    		android:id="@+id/offerText2"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content" />
+		         
+		    <Button
+				android:id="@+id/acceptOffer2Button"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:text="Accept"/>
+	    </LinearLayout>
+	    <Button
+				android:id="@+id/quitButton"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_centerInParent="true"
+				android:text="Quit"/>
+    </LinearLayout>
+	 -->
+	
+</RelativeLayout>

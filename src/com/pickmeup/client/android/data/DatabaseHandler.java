@@ -80,7 +80,6 @@ public class DatabaseHandler {
 			cursor.moveToFirst();
 			userData = new UserData(cursor.getString(0), cursor.getString(1));
 		}
-		cursor.close();
 		close();
 		return userData;
 	}
