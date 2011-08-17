@@ -1,11 +1,9 @@
 package com.pickmeup.client.android;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -46,16 +44,17 @@ public class RequestTaxiActivity extends Activity implements OnClickListener {
 		HttpClient httpclient = new DefaultHttpClient();
 		try {
 			HttpPost post = new HttpPost(
-					"http://10.0.2.2:8080/Server/query.json");
+					"http://10.0.2.2:8080/Server/query");
 
-			Query query = getIntent().getParcelableExtra("query");
-			post.setEntity(new StringEntity(new Gson().toJson(query)));
-			ResponseHandler<String> handler = new BasicResponseHandler();
 			try {
+				Query query = getIntent().getParcelableExtra("query");
+				post.setEntity(new StringEntity(new Gson().toJson(query)));
+
+				String response = httpclient.execute(post, new BasicResponseHandler());
+				
+				Negotation negotation = new Gson().fromJson(response, Negotation.class);
+
 				Intent intent = new Intent(this, FetchOffersActivity.class);
-
-				Negotation negotation = new Gson().fromJson(httpclient.execute(post, handler).toString(), Negotation.class);
-
 				intent.putExtra("negotiationId", negotation.getId());
 				startActivity(intent);
 			} catch (ClientProtocolException e) {
@@ -65,9 +64,6 @@ public class RequestTaxiActivity extends Activity implements OnClickListener {
 				Log.e(this.getClass().getName(), "Error sending request", e);
 				alertUser(e.getMessage());
 			}
-		} catch (UnsupportedEncodingException e) {
-			Log.e(this.getClass().getName(), "Error sending request", e);
-			alertUser(e.getMessage());
 		} finally {
 			httpclient.getConnectionManager().shutdown();
 		}

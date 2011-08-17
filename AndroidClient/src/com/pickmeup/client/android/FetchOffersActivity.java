@@ -3,11 +3,14 @@ package com.pickmeup.client.android;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 public class FetchOffersActivity extends Activity {
-	public void onClick(View v) {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.offers);
 
 		Long negotiationId = (Long) getIntent().getExtras().get("negotiationId");
