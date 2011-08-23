@@ -10,7 +10,6 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content" />
 	
-	<!-- 
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:orientation="vertical"
 	    android:layout_width="wrap_content"
@@ -21,36 +20,33 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerInParent="true">
+<!-- 		    <Spinner android:id="@+id/fetchOfferSpinner" -->
+<!-- 		    	/> -->
+		    
 	    	<TextView
 	    		android:id="@+id/offerText1"
 		         android:layout_width="wrap_content"
-		         android:layout_height="wrap_content" />
-		         
+		         android:layout_height="wrap_content"
+		         android:visibility="invisible" />
 		    <Button
-				android:id="@+id/acceptOffer1Button"
+				android:id="@+id/acceptOfferButton1"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_centerInParent="true"
-				android:text="Accept"/>
+				android:text="Accept"
+				android:visibility="invisible"/>
+				
 			<TextView
 	    		android:id="@+id/offerText2"
 		         android:layout_width="wrap_content"
 		         android:layout_height="wrap_content" />
-		         
 		    <Button
-				android:id="@+id/acceptOffer2Button"
+				android:id="@+id/acceptOfferButton2"
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
 				android:layout_centerInParent="true"
-				android:text="Accept"/>
+				android:text="Accept"
+				android:visibility="invisible"/>
 	    </LinearLayout>
-	    <Button
-				android:id="@+id/quitButton"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:layout_centerInParent="true"
-				android:text="Quit"/>
     </LinearLayout>
-	 -->
-	
 </RelativeLayout>

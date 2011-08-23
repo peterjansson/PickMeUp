@@ -73,7 +73,7 @@ public class RequestTaxiActivity extends Activity implements OnClickListener {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(s)
 				.setCancelable(false)
-				.setPositiveButton("Yes",
+				.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 								// RequestTaxiActivity.this.finish();

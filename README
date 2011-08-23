@@ -1,2 +1,2 @@
-mvn android:emulator-start
+./emulator -avd AVD_8
 mvn clean install android:deploy
