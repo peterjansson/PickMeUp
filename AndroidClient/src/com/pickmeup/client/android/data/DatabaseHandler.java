@@ -76,11 +76,13 @@ public class DatabaseHandler {
 		open();
 		Cursor cursor = database.query(USER_DATA_TABLENAME, new String[] { USER_DATA_COLUMN_NAME, USER_DATA_COLUMN_PHONENUMBER }, null,
 				null, null, null, null);
-		if(cursor != null && cursor.getCount() > 0) {
-			cursor.moveToFirst();
-			userData = new UserData(cursor.getString(0), cursor.getString(1));
+		if(cursor != null) {
+			if(cursor.getCount() > 0) {
+				cursor.moveToFirst();
+				userData = new UserData(cursor.getString(0), cursor.getString(1));
+			}
+			cursor.close();
 		}
-		cursor.close();
 		close();
 		return userData;
 	}

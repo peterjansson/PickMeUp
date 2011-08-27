@@ -6,6 +6,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.pickmeup.server.data.Negotation;
@@ -29,16 +30,23 @@ import com.pickmeup.server.data.Status;
 
 @Controller
 public class QueryController {
-	private Multimap<Long, Offer> demoOffers = LinkedListMultimap.create();
+	private static final Multimap<Long, Offer> demoOffers = LinkedListMultimap.create();
 	private static final Logger LOG = Logger.getLogger(QueryController.class);
+	private static final Random random = new Random();
+	
+	private void initiateDemoOffers(long negotiationId) {
+		demoOffers.put(negotiationId, new Offer(random.nextLong(), negotiationId, "Minitaxi", 5400d));
+		
+		demoOffers.put(negotiationId, new Offer(random.nextLong(), negotiationId, "Taxi kurir", 2400d));
+		
+		demoOffers.put(negotiationId, new Offer(random.nextLong(), negotiationId, "020", 5900d));
+	}
 	
 	@RequestMapping(value = "/query", method = RequestMethod.POST)
     public void initiateNegotation(@RequestBody String input, HttpServletResponse response)
     {
-		long negotiationId = new Random().nextLong();
-		LOG.info("Initiating negotiation with id "+negotiationId);
-		demoOffers.put(negotiationId, new Offer(negotiationId, "Minitaxi", 5400d));
-		
+		long negotiationId = random.nextLong();
+		initiateDemoOffers(negotiationId);
 		sendAsJson(new Negotation(negotiationId), response);
     }
 	
@@ -47,6 +55,23 @@ public class QueryController {
 		List<Offer> submittedOffersForNegotiation = getSubmittedOffersForNegotiation(Long.parseLong(negotiationId));
 		LOG.debug(format("Querying for offers associated with id %s, found %s offer(s)", negotiationId, size(submittedOffersForNegotiation)));
 		sendAsJson(submittedOffersForNegotiation, response);
+		for (Offer offer : submittedOffersForNegotiation) {
+			offer.setStatus(Status.OFFERED);
+		}
+	}
+	
+	@RequestMapping(value = "/query/offers/accept/{negotiationId}/{offerId}", method = RequestMethod.PUT)
+	public void acceptOffer(@PathVariable final String negotiationId, @PathVariable final String offerId, final HttpServletResponse response) {
+		Collection<Offer> collection = demoOffers.get(Long.parseLong(negotiationId));
+		Offer acceptedOffer = Iterables.find(collection, new Predicate<Offer>() {
+			@Override
+			public boolean apply(Offer input) {
+				return input.getId() == Long.parseLong(offerId);
+			}
+			
+		}, null);
+		demoOffers.put(Long.parseLong(negotiationId), null);
+		LOG.info(String.format("Accepted offer %s for negotiation %s (%s)", offerId, negotiationId, acceptedOffer.getTaxiName()));
 	}
 	
 	private List<Offer> getSubmittedOffersForNegotiation(final long negotiationId) {

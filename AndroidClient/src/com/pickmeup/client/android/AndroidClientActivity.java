@@ -18,7 +18,6 @@ public class AndroidClientActivity extends Activity {
 		
 		UserData userData = new DatabaseHandler(this).getUserData();
 		if (userData != null) {
-			// start request location activity for result here
 			Intent intent = new Intent(this, LocationActivity.class);
 			startActivity(intent);
 		} else {

@@ -26,26 +26,25 @@ public class Query implements Parcelable {
 		return longitude;
 	}
 
+	@Override
 	public int describeContents() {
 		return 0;
 	}
-
+	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(userName);
 		dest.writeDoubleArray(new double[] {latitude, longitude});
 	}
-	
 	public static final Parcelable.Creator<Query> CREATOR = new Parcelable.Creator<Query>() {
+		@Override
         public Query createFromParcel(Parcel in) {
             return new Query(in);
         }
-
+		@Override
         public Query[] newArray(int size) {
             return new Query[size];
         }
     };
-
-	
 	private Query(Parcel in) {
 		userName = in.readString();
 		double[] result = new double[2];
